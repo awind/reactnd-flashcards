@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, Platform } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Constants } from 'expo'
@@ -11,6 +11,7 @@ import AddDeck from './AddDeck'
 import AddQuestion from './AddQuestion'
 import DeckDetail from './DeckDetail'
 import QuizDetail from './QuizDetail'
+import { blue, white } from '../utils/colors'
 
 const Tabs = TabNavigator({
     DeckList: {
@@ -25,13 +26,20 @@ const Tabs = TabNavigator({
             tabBarLabel: 'Add Deck'
         }
     }
+}, {
+    tabBarOptions: {
+        activeTintColor: Platform.OS === 'ios' ? blue : white,
+        style: {
+            backgroundColor: Platform.OS === 'ios' ? white : blue,
+        }
+    }
 })
 
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs,
         navigationOptions: {
-            title: 'Home'
+            title: 'Home',
         }
     },
     DeckDetail: {
@@ -52,6 +60,8 @@ const MainNavigator = StackNavigator({
             title: 'Quiz Detail'
         }
     },
+}, {
+    headerMode: 'float',
 })
 
 function DeckStatusBar ({backgroundColor, ...props}) {
@@ -63,12 +73,12 @@ function DeckStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class Main extends Component {
-
+    
     render() {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={{flex: 1}}>
-                    <DeckStatusBar />
+                    <DeckStatusBar backgroundColor={blue} barStyle='light-content'/>
                     <MainNavigator />
                 </View>
             </Provider>
