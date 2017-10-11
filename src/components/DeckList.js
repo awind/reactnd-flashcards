@@ -57,7 +57,6 @@ class DeckList extends Component {
     }
 
     render() {
-        console.log(this.props.decks)
         return (
             <ListContainer>
                 <FlatList 
