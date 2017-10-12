@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { getDecks } from '../utils/api'
-import { addDecks } from '../actions'
-import { black, white, blue, lightPurp } from '../utils/colors'
+import { getDecks, deleteDeck } from '../utils/api'
+import { addDecks, removeDeck } from '../actions'
+import { black, white, blue, red } from '../utils/colors'
 import DeckItem from './DeckItem'
 import styled from 'styled-components/native'
+import Swipeout from 'react-native-swipeout'
 
 const ListContainer = styled.View`
     flex: 1;
@@ -17,7 +18,7 @@ const ListContainer = styled.View`
 const ItemContainer = styled.View`
     background: white;
 `
-
+// FlatList separator line
 const SeparatorLine = styled.View`
     height: 1;
     width: 100%;
@@ -36,6 +37,7 @@ const AddText = styled.Text`
 
 class DeckList extends Component {
 
+    // handle add button action in navigation bar
     handleAddDeck = () => {
         this.props.navigation.navigate('AddDeck', )
     }
@@ -60,15 +62,29 @@ class DeckList extends Component {
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
 
+    handleDelete = (item) => {
+        const { dispatch } = this.props
+        deleteDeck(item).then(decks => dispatch(removeDeck(item.title)))
+    }
+ 
     renderItem = ({item}) => {
+        const deleteButton = [
+            {
+                text: 'Delete',
+                backgroundColor: red,
+                onPress: (() => {this.handleDelete(item)})
+            }
+        ]
         return (
             <ItemContainer>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
-                    <DeckItem 
-                        title={item.title}
-                        questions={item.questions}
-                    />
-                </TouchableOpacity>
+                <Swipeout right={deleteButton}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
+                        <DeckItem 
+                            title={item.title}
+                            questions={item.questions}
+                        />
+                    </TouchableOpacity>
+                </Swipeout>
             </ItemContainer>
         )   
     }

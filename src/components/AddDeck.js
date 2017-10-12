@@ -60,7 +60,11 @@ class AddDeck extends Component {
                 
                 Alert.alert('Success!', 'Deck Added',
                 [
-                    {text: 'OK', onPress: () => this.props.navigation.goBack()},
+                    // OK Action
+                    {
+                        text: 'OK', 
+                        onPress: () => this.props.navigation.goBack()
+                    },
                 ],)
                 this.setState({text: ''})
             }
