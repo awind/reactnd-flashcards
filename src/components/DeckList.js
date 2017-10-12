@@ -11,7 +11,6 @@ import Swipeout from 'react-native-swipeout'
 const ListContainer = styled.View`
     flex: 1;
     flex-direction: row;
-    align-items: flex-start;
     justify-content: center;
 `
 
@@ -58,7 +57,7 @@ class DeckList extends Component {
     componentDidMount() {
         const { dispatch } = this.props
         getDecks().then(decks => dispatch(addDecks(decks)))
-
+        // set params for right button
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
 
@@ -68,6 +67,7 @@ class DeckList extends Component {
     }
  
     renderItem = ({item}) => {
+        // Delete button for Swipeout
         const deleteButton = [
             {
                 text: 'Delete',
@@ -98,8 +98,8 @@ class DeckList extends Component {
     render() {
         return (
             <ListContainer>
-                <FlatList 
-                    data={Object.values(this.props.decks).sort((a, b) => a.title > b.title)}
+                <FlatList
+                    data={Object.values(this.props.decks).sort((firstItem, secondItem) => firstItem.title > secondItem.title)}
                     renderItem={this.renderItem}
                     ItemSeparatorComponent={this.renderSeparator}
                     keyExtractor={(item, index) => index}

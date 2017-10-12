@@ -5,7 +5,7 @@ import { white, red } from '../utils/colors'
 
 const ItemContainer = styled.View`
     flex-direction: row;
-    height: 120;
+    height: 100;
     background: white;
     justify-content: center;
     align-items: center;
@@ -41,7 +41,6 @@ class DeckItem extends Component {
                     <DeckSubheader>{questions && questions.length} cards</DeckSubheader>
                 </DeckTitleView>
             </ItemContainer>
-
         )
     }
 }
