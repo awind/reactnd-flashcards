@@ -13,33 +13,17 @@ import DeckDetail from './DeckDetail'
 import QuizDetail from './QuizDetail'
 import { blue, white } from '../utils/colors'
 
-const Tabs = TabNavigator({
+const MainNavigator = StackNavigator({
     DeckList: {
         screen: DeckList,
         navigationOptions: {
-            tabBarLabel: 'Deck List'
+            title: 'Deck List',
         }
     },
     AddDeck: {
         screen: AddDeck,
         navigationOptions: {
-            tabBarLabel: 'Add Deck'
-        }
-    }
-}, {
-    tabBarOptions: {
-        activeTintColor: Platform.OS === 'ios' ? blue : white,
-        style: {
-            backgroundColor: Platform.OS === 'ios' ? white : blue,
-        }
-    }
-})
-
-const MainNavigator = StackNavigator({
-    Home: {
-        screen: Tabs,
-        navigationOptions: {
-            title: 'Home',
+            title: 'Add Deck'
         }
     },
     DeckDetail: {

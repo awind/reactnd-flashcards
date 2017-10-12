@@ -21,6 +21,8 @@ function decks(state = {}, action) {
                 ...state,
                 [title]: {...state[title], questions: newQuestions},
             }
+        case Type.REMOVE_DECK:
+            return state
         default:
             return state
     }

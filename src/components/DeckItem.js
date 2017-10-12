@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import styled from 'styled-components/native'
-import { white } from '../utils/colors'
+import { white, red } from '../utils/colors'
 
 const ItemContainer = styled.View`
     flex-direction: row;
-    margin-top: 12;
     height: 120;
     background: white;
     justify-content: center;
@@ -28,6 +27,12 @@ const DeckSubheader = styled.Text`
 class DeckItem extends Component {
 
     render() {
+        // swipe to right
+        const deleteBtn = [{
+            text: 'Delete', 
+            onPress: () => {console.log('On Press')},
+            backgroundColor: red,
+        }]
         const { title, questions } = this.props
         return (
             <ItemContainer>
@@ -36,6 +41,7 @@ class DeckItem extends Component {
                     <DeckSubheader>{questions && questions.length} cards</DeckSubheader>
                 </DeckTitleView>
             </ItemContainer>
+
         )
     }
 }

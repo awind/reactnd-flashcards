@@ -37,6 +37,7 @@ class AddDeck extends Component {
     static navigationOptions = {
         headerStyle: { backgroundColor: blue },
         headerTitleStyle: { color: white },
+        headerTintColor: white,
     }
 
     state = {
@@ -48,7 +49,7 @@ class AddDeck extends Component {
         const input = this.state.text
         const { decks } = this.props
         if(!input) {
-            Alert.alert('Mandatory', 'Deck name can not be empty!')
+            Alert.alert('Warninga', 'Deck name can not be empty!')
         } else {
             if(decks[input]) {
                 Alert.alert('Error', 'Deck already exists.')
@@ -59,16 +60,11 @@ class AddDeck extends Component {
                 
                 Alert.alert('Success!', 'Deck Added',
                 [
-                    {text: 'OK', onPress: () => this.props.navigation.navigate('DeckDetail', {
-                        title: input,
-                        questions : []
-                    })},
+                    {text: 'OK', onPress: () => this.props.navigation.goBack()},
                 ],)
                 this.setState({text: ''})
             }
         }
-
-        
     }
 
     render() {

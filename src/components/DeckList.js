@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Button, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
 import { addDecks } from '../actions'
-import { black, white, blue } from '../utils/colors'
+import { black, white, blue, lightPurp } from '../utils/colors'
 import DeckItem from './DeckItem'
 import styled from 'styled-components/native'
 
@@ -24,17 +24,40 @@ const SeparatorLine = styled.View`
     background: #CED0CE;
 `
 
+const AddBtn = styled.TouchableOpacity`
+    padding: 20px;
+`
+
+const AddText = styled.Text`
+    color: white;
+    text-align: center;
+`
+
 
 class DeckList extends Component {
 
-    static navigationOptions = {
-        headerStyle: { backgroundColor: blue },
-        headerTitleStyle: { color: white },
+    handleAddDeck = () => {
+        this.props.navigation.navigate('AddDeck', )
+    }
+
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            headerStyle: { backgroundColor: blue },
+            headerTitleStyle: { color: white },
+            headerTintColor: white,
+            headerRight: (<AddBtn onPress={() => params.handleAddDeck()}>
+                <AddText>Add</AddText>
+            </AddBtn>),
+        }
     }
 
     componentDidMount() {
         const { dispatch } = this.props
         getDecks().then(decks => dispatch(addDecks(decks)))
+
+        this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
 
     renderItem = ({item}) => {

@@ -20,3 +20,10 @@ export function addQuestion(question) {
         question,
     }
 }
+
+export function removeDeck(title) {
+    return {
+        type: Type.REMOVE_DECK,
+        title,
+    }
+}

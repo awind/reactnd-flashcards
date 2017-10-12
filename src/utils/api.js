@@ -46,6 +46,18 @@ export function saveDeck (deck) {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deck))
 }
 
+export function removeDeck (deck) {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY, (error, result) => {
+    let decks = JSON.parse(result)
+    let newQuestions = JSON.parse(JSON.stringify(decks[deckTitle].questions))
+    newQuestions[newQuestions.length] = card
+    const value = JSON.stringify({
+      [deckTitle]: {title: deckTitle, questions: newQuestions},
+    })
+    AsyncStorage.mergeItem(DECK_STORAGE_KEY, value)
+  })
+}
+
 /**
  * take in two arguments, title and card, and will add the card to the list 
  * of questions for the deck with the associated title. 
