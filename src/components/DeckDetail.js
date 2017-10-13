@@ -13,6 +13,7 @@ const TextContainerView = styled.View`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 16px;
 `
 
 const AddCardBtn = styled.TouchableOpacity`
@@ -20,15 +21,19 @@ const AddCardBtn = styled.TouchableOpacity`
     margin: 24px;
     padding: 10px;
     borderRadius: 7;
+    border-width: 1px;
+    border-color: black;
     height: 45px;
 `
 
 const StartBtn = styled.TouchableOpacity`
-    background: black;
+    background: red;
     margin: 24px;
     padding: 40px;
     height: 45px;
-    borderRadius: 2;
+    borderRadius: 5;
+    border-width: 1px;
+    border-color: white;
     justify-content: center;
 `
 
@@ -54,8 +59,6 @@ class DeckDetail extends Component {
 
     render() {
         const { title } = this.props.navigation.state.params
-        // console.log(this.props.decks[title])
-        // console.log(this.props.decks[title].questions)
         const questions = this.props.decks[title] && this.props.decks[title].questions
 
         return (
@@ -75,7 +78,7 @@ class DeckDetail extends Component {
                     <AddCardTitle>Add Card</AddCardTitle>
                 </AddCardBtn>
 
-                <StartBtn>
+                <StartBtn onPress={() => {this.props.navigation.navigate('QuizDetail', {title, questions}) }}>
                     <StartQuestionTitle>Start Quiz</StartQuestionTitle>
                 </StartBtn>
             </ContainerView>

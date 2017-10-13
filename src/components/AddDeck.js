@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { black, white, blue } from '../utils/colors'
+import { View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native'
+import { black, white, blue, green } from '../utils/colors'
 import styled from 'styled-components/native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
@@ -9,8 +9,9 @@ import { saveDeck } from '../utils/api'
 const ContainerView = styled.View`
     flex: 1;
     align-items: center;
+    margin-top: 20px;
 `
-const DeckInputView = styled.TextInput`
+const InputView = styled.TextInput`
     width: 300px;
     height: 44px;
     padding: 8px;
@@ -20,10 +21,20 @@ const DeckInputView = styled.TextInput`
     background: white;
 `
 
+const TitleView = styled.Text`
+    fontSize: 24;
+    margin-top: 16px;
+    margin-bottom: 8px;
+`
+
 const SubmitBtn = styled.TouchableOpacity`
-    background: black;
-    padding: 10px;
+    background: green;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 48px;
+    padding-right: 48px;
     height: 44px;
+    border-radius: 1px;
 `
 
 const SubmitTitle = styled.Text`
@@ -45,7 +56,6 @@ class AddDeck extends Component {
     }
 
     addNewDeck = () => {
-        console.log('Add New Deck')
         const input = this.state.text
         const { decks } = this.props
         if(!input) {
@@ -74,11 +84,13 @@ class AddDeck extends Component {
     render() {
         return (
             <ContainerView>
-                <Text style={{fontSize: 28}}>What is the title of your new deck?</Text>
+                <TitleView>What is the title of your new deck?</TitleView>
 
-                <DeckInputView 
-                    value={this.state.text}
-                    onChangeText={(text) => this.setState({text})} />
+                <KeyboardAvoidingView>
+                    <InputView 
+                        value={this.state.text}
+                        onChangeText={(text) => this.setState({text})} />
+                </KeyboardAvoidingView>
 
                 <SubmitBtn onPress={this.addNewDeck}>
                     <SubmitTitle>Submit</SubmitTitle>

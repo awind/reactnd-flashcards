@@ -21,6 +21,7 @@ const DeckHeader = styled.Text`
 `
 
 const DeckSubheader = styled.Text`
+    margin-top: 8px;
     font-size: 18;
 `
 

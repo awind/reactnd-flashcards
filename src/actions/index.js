@@ -14,10 +14,10 @@ export function addDeck(deck) {
     }
 }
 
-export function addQuestion(question) {
+export function addQuestion(data) {
     return {
         type: Type.ADD_QUESTION,
-        question,
+        data,
     }
 }
 

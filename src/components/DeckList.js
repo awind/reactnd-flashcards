@@ -7,6 +7,7 @@ import { black, white, blue, red } from '../utils/colors'
 import DeckItem from './DeckItem'
 import styled from 'styled-components/native'
 import Swipeout from 'react-native-swipeout'
+import Swipeable from 'react-native-swipeable'
 
 const ListContainer = styled.View`
     flex: 1;
@@ -49,7 +50,7 @@ class DeckList extends Component {
             headerTitleStyle: { color: white },
             headerTintColor: white,
             headerRight: (<AddBtn onPress={() => params.handleAddDeck()}>
-                <AddText>Add</AddText>
+                <AddText>Add Deck</AddText>
             </AddBtn>),
         }
     }
@@ -65,26 +66,25 @@ class DeckList extends Component {
         const { dispatch } = this.props
         deleteDeck(item).then(decks => dispatch(removeDeck(item.title)))
     }
- 
+    
     renderItem = ({item}) => {
         // Delete button for Swipeout
-        const deleteButton = [
-            {
-                text: 'Delete',
-                backgroundColor: red,
-                onPress: (() => {this.handleDelete(item)})
-            }
-        ]
+        // const deleteButton = [
+        //     {
+        //         text: 'Delete',
+        //         backgroundColor: red,
+        //         onPress: (() => {this.handleDelete(item)})
+        //     }
+        // ]
+
         return (
             <ItemContainer>
-                <Swipeout right={deleteButton}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
-                        <DeckItem 
-                            title={item.title}
-                            questions={item.questions}
-                        />
-                    </TouchableOpacity>
-                </Swipeout>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
+                    <DeckItem 
+                        title={item.title}
+                        questions={item.questions}
+                    />
+                </TouchableOpacity>
             </ItemContainer>
         )   
     }
