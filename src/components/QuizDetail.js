@@ -15,8 +15,8 @@ const ContainerView = styled.View`
 
 const TopLeftTitle = styled.Text`
     font-size: 24;
-    margin-top: 100px;
-    text-align: center;
+    margin-left: 16px;
+    margin-top: 10px;
 `
 
 const ActionBtnContainer = styled.View`
@@ -56,6 +56,8 @@ const WrongText = styled.Text`
 
 const HeaderText = styled.Text`
     font-size: 28;
+    padding-left: 16px;
+    padding-right: 16px;
 `
 
 const SubheadText = styled.Text`
