@@ -65,7 +65,6 @@ const SubheadText = styled.Text`
 `
 
 
-
 class QuizDetail extends Component {
 
     static navigationOptions = {
@@ -115,8 +114,8 @@ class QuizDetail extends Component {
     }
 
     render() {
-        const {questions} = this.props.navigation.state.params
-        const {questionIndex, correctAnswers, isShowAnswer} = this.state
+        const { questions } = this.props.navigation.state.params
+        const { questionIndex, correctAnswers, isShowAnswer } = this.state
         const isQuestionLeft = questionIndex < questions.length
         const questionLeftCount = questions.length - questionIndex
 

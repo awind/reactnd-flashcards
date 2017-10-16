@@ -28,12 +28,7 @@ const DeckSubheader = styled.Text`
 class DeckItem extends Component {
 
     render() {
-        // swipe to right
-        const deleteBtn = [{
-            text: 'Delete', 
-            onPress: () => {console.log('On Press')},
-            backgroundColor: red,
-        }]
+        
         const { title, questions } = this.props
         return (
             <ItemContainer>

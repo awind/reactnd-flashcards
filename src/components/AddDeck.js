@@ -67,16 +67,8 @@ class AddDeck extends Component {
                 const newDeck = {[input]: {title: input, questions: []}}
                 this.props.dispatch(addDeck(newDeck))
                 saveDeck(newDeck)
-                
-                Alert.alert('Success!', 'Deck Added',
-                [
-                    // OK Action
-                    {
-                        text: 'OK', 
-                        onPress: () => this.props.navigation.goBack()
-                    },
-                ],)
                 this.setState({text: ''})
+                this.props.navigation.goBack()
             }
         }
     }

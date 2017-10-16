@@ -69,14 +69,7 @@ class AddQuestion extends Component {
             deckTitle: title,
             card: {question, answer},
         })
-        Alert.alert('Success!', 'Question Added',
-        [
-            // OK Action
-            {
-                text: 'OK', 
-                onPress: () => this.props.navigation.goBack()
-            },
-        ],)
+        this.props.navigation.goBack()
     }
 
     render() {
