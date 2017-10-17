@@ -68,56 +68,23 @@ class DeckList extends Component {
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
 
-    handleDelete = (item) => {
-        const { dispatch } = this.props
-        deleteDeck(item).then(decks => dispatch(removeDeck(item.title)))
-    }
-
+    // reference to the swipeable
     swipeable = null
-    
-    handleUserBeganScrollingParentView() {
+
+    handleDelete = (item) => {
         this.swipeable.recenter()
-    }
-
-    handleRightActionRelease = () => {
-        this.swipeable.recenter()
-    }
-
-    state = {
-        leftActionActivated: false,
-        toggle: false
-      }
-
-    handleLeftActionComplete = (item) => {
-        const toggle = this.state.toggle
-        this.setState({toggle: !toggle})
-        // delete item
-        deleteDeck(item).then(() => {
-            this.props.dispatch(removeDeck(item))
-        })
-
+        const { dispatch } = this.props
+        deleteDeck(item).then(decks => dispatch(removeDeck(item)))
     }
     
     renderItem = ({item}) => {
-        const { leftActionActivated, toggle } = this.state
-        // swipe to right
+        // swipe right button
         const deleteBtn = [
-            <TouchableOpacity style={{flex: 1, backgroundColor: 'red', justifyContent:'center'}}><Text style={{fontSize: 18, paddingLeft: 20, color: white}}>Delete</Text></TouchableOpacity>,
+            <TouchableOpacity onPress={() => this.handleDelete(item)} style={{flex: 1, backgroundColor: 'red', justifyContent:'center'}}><Text style={{fontSize: 18, paddingLeft: 20, color: white}}>Delete</Text></TouchableOpacity>,
         ]
 
         return (
-            <Swipeable 
-                leftActionActivationDistance={200}
-                leftContent={(
-                    <LeftSwipeButton>
-                        {leftActionActivated ?
-                        <Text style={{color: white, fontSize: 18}}>release to delete</Text> :
-                        <Text style={{color: white, fontSize: 18}}>Pulling to delete</Text>}
-                    </LeftSwipeButton>
-                )}
-                onLeftActionActivate={() => this.setState({leftActionActivated: true})}
-                onLeftActionDeactivate={() => this.setState({leftActionActivated: false})}
-                onLeftActionComplete={() => this.handleLeftActionComplete(item)}>
+            <Swipeable rightButtons={deleteBtn} key={item.title} onRef={ref => this.swipeable = ref}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
                     <DeckItem 
                         title={item.title}
@@ -134,19 +101,22 @@ class DeckList extends Component {
         )
     }
 
+    onScroll = () => {
+        this.swipeable.recenter()
+    }
+
     render() {
         return (
             <ListContainer>
                 { Object.keys(this.props.decks).length !== 0 ?
                     <FlatList
-                    data={Object.values(this.props.decks).sort((firstItem, secondItem) => firstItem.title > secondItem.title)}
-                    renderItem={this.renderItem}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    keyExtractor={(item, index) => index} /> 
-                    : <View style={{justifyContent: 'center'}}><Text style={{fontSize: 28, textAlign:'center', color: 'gray'}}>No Data.</Text></View>
-                
+                        onScroll={() => this.swipeable.recenter()}
+                        data={Object.values(this.props.decks).sort((firstItem, secondItem) => firstItem.title > secondItem.title)}
+                        renderItem={this.renderItem}
+                        ItemSeparatorComponent={this.renderSeparator}
+                        keyExtractor={(item, index) => index} /> 
+                        : <View style={{justifyContent: 'center'}}><Text style={{fontSize: 28, textAlign:'center', color: 'gray'}}>No Data.</Text></View>
                 }
-
             </ListContainer>
         )
     }

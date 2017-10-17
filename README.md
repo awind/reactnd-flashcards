@@ -8,11 +8,13 @@ This is the third app for The React Nanodegree program. This is mobile flashcard
 iOS: 
 
 <img src="screenshots/iOS-1.png" width="210"> <img src="screenshots/iOS-2.png" width="210"> <img src="screenshots/iOS-3.png" width="210">
+
 <img src="screenshots/iOS-4.png" width="210"> <img src="screenshots/iOS-5.png" width="210"> <img src="screenshots/iOS-6.png" width="210">
 
 Android:
 
 <img src="screenshots/Android-1.png" width="210"> <img src="screenshots/Android-2.png" width="210"> <img src="screenshots/Android-3.png" width="210">
+
 <img src="screenshots/AndroidiOS-4.png" width="210"> <img src="screenshots/Android-5.png" width="210"> <img src="screenshots/Android-6.png" width="210">
 
 
