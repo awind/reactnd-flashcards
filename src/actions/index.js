@@ -21,9 +21,9 @@ export function addQuestion(data) {
     }
 }
 
-export function removeDeck(deck) {
+export function removeDeck(title) {
     return {
         type: Type.REMOVE_DECK,
-        deck,
+        title,
     }
 }

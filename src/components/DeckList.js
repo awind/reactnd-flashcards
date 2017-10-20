@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity, Button, Platform, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { getDecks, deleteDeck } from '../utils/api'
-import { addDecks, removeDeck } from '../actions'
+import { getDecks } from '../utils/api'
+import { addDecks } from '../actions'
 import { black, white, blue, red } from '../utils/colors'
 import DeckItem from './DeckItem'
 import styled from 'styled-components/native'
-import Swipeable from 'react-native-swipeable'
 
 const ListContainer = styled.View`
     flex: 1;
@@ -67,31 +66,16 @@ class DeckList extends Component {
         // set params for right button
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
-
-    // reference to the swipeable
-    swipeable = null
-
-    handleDelete = (item) => {
-        this.swipeable.recenter()
-        const { dispatch } = this.props
-        deleteDeck(item).then(decks => dispatch(removeDeck(item)))
-    }
     
     renderItem = ({item}) => {
-        // swipe right button
-        const deleteBtn = [
-            <TouchableOpacity onPress={() => this.handleDelete(item)} style={{flex: 1, backgroundColor: 'red', justifyContent:'center'}}><Text style={{fontSize: 18, paddingLeft: 20, color: white}}>Delete</Text></TouchableOpacity>,
-        ]
 
         return (
-            <Swipeable rightButtons={deleteBtn} key={item.title} onRef={ref => this.swipeable = ref}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
-                    <DeckItem 
-                        title={item.title}
-                        questions={item.questions}
-                    />
-                </TouchableOpacity>
-            </Swipeable>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetail', item)}>
+                <DeckItem 
+                    title={item.title}
+                    questions={item.questions}
+                />
+            </TouchableOpacity>
         )   
     }
 
@@ -101,16 +85,11 @@ class DeckList extends Component {
         )
     }
 
-    onScroll = () => {
-        this.swipeable.recenter()
-    }
-
     render() {
         return (
             <ListContainer>
                 { Object.keys(this.props.decks).length !== 0 ?
                     <FlatList
-                        onScroll={() => this.swipeable.recenter()}
                         data={Object.values(this.props.decks).sort((firstItem, secondItem) => firstItem.title > secondItem.title)}
                         renderItem={this.renderItem}
                         ItemSeparatorComponent={this.renderSeparator}

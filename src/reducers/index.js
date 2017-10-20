@@ -22,7 +22,7 @@ function decks(state = {}, action) {
                 [title]: {...state[title], questions: newQuestions},
             }
         case Type.REMOVE_DECK:
-            const item = action.deck.title
+            const item = action.title
             let newState = Object.assign({}, state)
             delete newState[item]
             return newState

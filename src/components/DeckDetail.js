@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { blue, white, black } from '../utils/colors'
+import { blue, white, black, green } from '../utils/colors'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
-
+import { deleteDeck } from '../utils/api'
+import { removeDeck } from '../actions'
 
 const ContainerView = styled.View`
     flex: 1;
@@ -27,9 +28,24 @@ const AddCardBtn = styled.TouchableOpacity`
 `
 
 const StartBtn = styled.TouchableOpacity`
+    background: green;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 16px;
+    padding: 24px;
+    height: 45px;
+    borderRadius: 5;
+    border-width: 1px;
+    border-color: white;
+    justify-content: center;
+`
+
+const DeleteBtn = styled.TouchableOpacity`
     background: red;
-    margin: 24px;
-    padding: 40px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 16px;
+    padding: 24px;
     height: 45px;
     borderRadius: 5;
     border-width: 1px;
@@ -57,6 +73,12 @@ class DeckDetail extends Component {
         headerTintColor: white,
     }
 
+    handleDelete = (title) => {
+        const { dispatch } = this.props
+        deleteDeck(title).then(decks => dispatch(removeDeck(title)))
+        this.props.navigation.goBack()
+    }
+
     render() {
         const { title } = this.props.navigation.state.params
         const questions = this.props.decks[title] && this.props.decks[title].questions
@@ -65,7 +87,7 @@ class DeckDetail extends Component {
             <ContainerView>
                 <TextContainerView>
                     <Text style={{fontSize: 36}}>{title}</Text>
-                    <Text style={{fontSize: 24, marginTop: 12}}>{questions.length} cards</Text>
+                    <Text style={{fontSize: 24, marginTop: 12}}>{questions && questions.length} cards</Text>
                 </TextContainerView>
 
                 <AddCardBtn 
@@ -81,6 +103,10 @@ class DeckDetail extends Component {
                 <StartBtn onPress={() => {this.props.navigation.navigate('QuizDetail', {title, questions}) }}>
                     <StartQuestionTitle>Start Quiz</StartQuestionTitle>
                 </StartBtn>
+
+                <DeleteBtn onPress={() => this.handleDelete(title)}>
+                    <StartQuestionTitle>Delete Deck</StartQuestionTitle>
+                </DeleteBtn>
             </ContainerView>
 
         )

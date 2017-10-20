@@ -49,10 +49,10 @@ export function saveDeck (deck) {
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deck))
 }
 
-export function deleteDeck (deck) {
+export function deleteDeck (title) {
   return AsyncStorage.getItem(DECK_STORAGE_KEY, (error, result) => {
     let decks = JSON.parse(result)
-    delete decks[deck.title]
+    delete decks[title]
     AsyncStorage.removeItem(DECK_STORAGE_KEY).then(() => {
       AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
     })
