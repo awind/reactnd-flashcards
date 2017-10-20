@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native'
-import { blue, white } from '../utils/colors'
+import { blue, white, green } from '../utils/colors'
 import styled from 'styled-components/native'
 import { addQuestion } from '../actions'
 import { addCardToDeck } from '../utils/api'
@@ -9,26 +9,25 @@ import { connect } from 'react-redux'
 const ContainerView = styled.View`
     flex: 1;
     align-items: center;
-    padding-top: 20px;
+    margin-top: 20px;
 `
 const InputView = styled.TextInput`
     width: 300px;
     height: 44px;
     padding: 8px;
-    margin: 24px;
+    margin: 16px;
     border-width: 1px;
     border-color: white;
     background: white;
 `
-const TitleView = styled.Text`
-    fontSize: 24;
-    margin-top: 16px;
-    margin-bottom: 8px;
-`
 const SubmitBtn = styled.TouchableOpacity`
-    background: black;
-    padding: 8px;
+    background: green;
     height: 44px;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 8px;
+    padding-left: 56px;
+    padding-right: 56px;
     border-radius: 1px;
 `
 const SubmitText = styled.Text`
