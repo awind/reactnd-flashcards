@@ -14,7 +14,7 @@ function decks(state = {}, action) {
                 ...action.deck,
             }
         case Type.ADD_QUESTION:
-            const {title, questions, question, answer} = action.data
+            const { title, questions, question, answer } = action.data
             const newQuestions = JSON.parse(JSON.stringify(questions)).concat([{ question, answer}])
 
             return {

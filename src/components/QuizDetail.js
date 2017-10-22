@@ -179,10 +179,8 @@ class QuizDetail extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        decks: state,
-    }
-}
+const mapStateToProps = (state) => ({
+    decks: state,
+})
 
 export default connect(mapStateToProps, )(QuizDetail)
