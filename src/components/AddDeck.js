@@ -65,7 +65,7 @@ class AddDeck extends Component {
                 Alert.alert('Error', 'Deck already exists.')
             } else {
                 const newDeck = {[input]: {title: input, questions: []}}
-                this.props.dispatch(addDeck(newDeck))
+                this.props.addDeck(newDeck)
                 saveDeck(newDeck)
                 this.setState({text: ''})
                 this.props.navigation.goBack()
@@ -96,4 +96,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-export default connect(mapStateToProps, )(AddDeck)
+const mapDispatchToProps = (dispatch) => ({
+    addDeck(newDeck) {
+        dispatch(addDeck(newDeck))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)

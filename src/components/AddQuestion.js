@@ -62,7 +62,7 @@ class AddQuestion extends Component {
             return
         }
         const params = { title, questions, question, answer}
-        this.props.dispatch(addQuestion(params))
+        this.props.addQuestion(params)
 
         addCardToDeck({
             deckTitle: title,
@@ -102,4 +102,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-export default connect(mapStateToProps, )(AddQuestion)
+const mapDispatchToProps = (dispatch) => ({
+    addQuestion(params) {
+        dispatch(addQuestion(params))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddQuestion)

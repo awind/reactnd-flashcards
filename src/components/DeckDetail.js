@@ -74,8 +74,7 @@ class DeckDetail extends Component {
     }
 
     handleDelete = (title) => {
-        const { dispatch } = this.props
-        deleteDeck(title).then(decks => dispatch(removeDeck(title)))
+        deleteDeck(title).then(decks => this.props.removeDeck(title))
         this.props.navigation.goBack()
     }
 
@@ -117,4 +116,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-export default connect(mapStateToProps, )(DeckDetail)
+const mapDispatchToProps = (dispatch) => ({
+    removeDeck(title) {
+        dispatch(removeDeck(title))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckDetail)

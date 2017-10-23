@@ -61,8 +61,7 @@ class DeckList extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props
-        getDecks().then(decks => dispatch(addDecks(decks)))
+        getDecks().then(decks => this.props.addDecks(decks))
         // set params for right button
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
@@ -105,4 +104,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-export default connect(mapStateToProps, )(DeckList)
+const mapDispatchToProps = (dispatch) => ({
+    addDecks(decks) {
+        dispatch(addDecks(decks))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
