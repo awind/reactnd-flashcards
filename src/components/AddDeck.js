@@ -96,10 +96,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    addDeck(newDeck) {
-        dispatch(addDeck(newDeck))
-    }
-})
+// const mapDispatchToProps = (dispatch) => ({
+//     addDeck(newDeck) {
+//         dispatch(addDeck(newDeck))
+//     }
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)
+export default connect(mapStateToProps, { addDeck })(AddDeck)

@@ -116,10 +116,10 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    removeDeck(title) {
-        dispatch(removeDeck(title))
-    }
-})
+// const mapDispatchToProps = (dispatch) => ({
+//     removeDeck(title) {
+//         dispatch(removeDeck(title))
+//     }
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeckDetail)
+export default connect(mapStateToProps, { removeDeck })(DeckDetail)
