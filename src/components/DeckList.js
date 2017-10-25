@@ -6,6 +6,7 @@ import { addDecks } from '../actions'
 import { black, white, blue, red } from '../utils/colors'
 import DeckItem from './DeckItem'
 import styled from 'styled-components/native'
+import { AppLoading } from 'expo'
 
 const ListContainer = styled.View`
     flex: 1;
@@ -42,6 +43,9 @@ const LeftSwipeButton = styled.View`
 
 class DeckList extends Component {
 
+    state = {
+        ready: false,
+    }
     // handle add button action in navigation bar
     handleAddDeck = () => {
         this.props.navigation.navigate('AddDeck', )
@@ -61,7 +65,10 @@ class DeckList extends Component {
     }
 
     componentDidMount() {
-        getDecks().then(decks => this.props.addDecks(decks))
+        getDecks().then(decks => {
+            this.props.addDecks(decks)
+            this.setState({ready: true})
+        })
         // set params for right button
         this.props.navigation.setParams({handleAddDeck: this.handleAddDeck})
     }
@@ -85,6 +92,11 @@ class DeckList extends Component {
     }
 
     render() {
+        const { ready } = this.state
+        if(ready === false) {
+            return <AppLoading />
+        }
+        
         return (
             <ListContainer>
                 { Object.keys(this.props.decks).length !== 0 ?
