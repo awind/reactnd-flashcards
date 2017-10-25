@@ -102,10 +102,5 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    addQuestion(params) {
-        dispatch(addQuestion(params))
-    }
-})
 
 export default connect(mapStateToProps, { addQuestion })(AddQuestion)

@@ -68,7 +68,14 @@ class AddDeck extends Component {
                 this.props.addDeck(newDeck)
                 saveDeck(newDeck)
                 this.setState({text: ''})
-                this.props.navigation.goBack()
+                this.props.navigation.navigate('DeckDetail', newDeck)
+                // this.props.navigation.dispatch({
+                //   key: 'DeckDetail',
+                //   type: 'ReplaceCurrentScreen',
+                //   routeName: 'DeckDetail',
+                //   params: { newDeck },
+                // });
+               
             }
         }
     }
@@ -95,11 +102,5 @@ class AddDeck extends Component {
 const mapStateToProps = (state) => ({
     decks: state,
 })
-
-// const mapDispatchToProps = (dispatch) => ({
-//     addDeck(newDeck) {
-//         dispatch(addDeck(newDeck))
-//     }
-// })
 
 export default connect(mapStateToProps, { addDeck })(AddDeck)

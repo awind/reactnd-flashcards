@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 import { deleteDeck } from '../utils/api'
 import { removeDeck } from '../actions'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 const ContainerView = styled.View`
     flex: 1;
@@ -78,6 +79,17 @@ class DeckDetail extends Component {
         this.props.navigation.goBack()
     }
 
+    startQuiz = () => {
+        const { title } = this.props.navigation.state.params
+        const questions = this.props.decks[title] && this.props.decks[title].questions
+        if(questions.length === 0) {
+            return 
+        }
+        clearLocalNotification()
+        setLocalNotification()
+        this.props.navigation.navigate('QuizDetail', {title, questions})
+    }
+
     render() {
         const { title } = this.props.navigation.state.params
         const questions = this.props.decks[title] && this.props.decks[title].questions
@@ -99,7 +111,7 @@ class DeckDetail extends Component {
                     <AddCardTitle>Add Card</AddCardTitle>
                 </AddCardBtn>
 
-                <StartBtn onPress={() => {this.props.navigation.navigate('QuizDetail', {title, questions}) }}>
+                <StartBtn onPress={() => this.startQuiz()}>
                     <StartQuestionTitle>Start Quiz</StartQuestionTitle>
                 </StartBtn>
 
@@ -115,11 +127,5 @@ class DeckDetail extends Component {
 const mapStateToProps = (state) => ({
     decks: state,
 })
-
-// const mapDispatchToProps = (dispatch) => ({
-//     removeDeck(title) {
-//         dispatch(removeDeck(title))
-//     }
-// })
 
 export default connect(mapStateToProps, { removeDeck })(DeckDetail)

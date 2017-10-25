@@ -25,10 +25,36 @@ const ActionBtnContainer = styled.View`
     flex: 1;
 `
 
-const BackBtnContainer = styled.View`
+const RestartBtn = styled.TouchableOpacity`
+    background: green;
+    height: 44px;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 16;
+    margin-top: 24px;
+    padding-top: 8px;
+    margin-left: 56px;
+    margin-right: 56px;
+    padding-left: 56px;
+    padding-right: 56px;
+    border-radius: 1px;
+`
+
+const BackBtn = styled.TouchableOpacity`
+    background: red;
+    height: 44px;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 8px;
+    margin-left: 56px;
+    margin-right: 56px;
+    padding-left: 56px;
+    padding-right: 56px;
+    border-radius: 1px;
+`
+
+const BtnText = styled.Text`
+    color: white;
+    fontSize: 22;
+    text-align: center;
 `
 
 const TextButton = styled.TouchableOpacity`
@@ -167,11 +193,15 @@ class QuizDetail extends Component {
                     </ContainerView>) : (
                     <ContainerView>
                         <TopLeftTitle>{correctAnswers} / {questions.length} of your answer is Correct</TopLeftTitle>
-                        <BackBtnContainer>
-                            <TouchableOpacity onPress={this.backToDeck}>
-                                <WrongText>Back to Deck</WrongText>
-                            </TouchableOpacity>
-                        </BackBtnContainer>
+
+                        <RestartBtn onPress={this.startQuiz}>
+                            <BtnText>Restart Quiz</BtnText>
+                        </RestartBtn>
+
+                        <BackBtn onPress={this.backToDeck}>
+                            <BtnText>Back to Deck</BtnText>
+                        </BackBtn>
+
                     </ContainerView>
                 )}
             </MainView>
@@ -183,4 +213,4 @@ const mapStateToProps = (state) => ({
     decks: state,
 })
 
-export default connect(mapStateToProps, )(QuizDetail)
+export default connect(mapStateToProps)(QuizDetail)

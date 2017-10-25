@@ -34,3 +34,7 @@ yarn start
 + [react](https://github.com/facebook/react)
 + [react-native](https://github.com/facebook/react-native)
 + [redux](https://github.com/reactjs/react-redux)
+
+## License
+
+[Apache](https://www.apache.org/licenses/LICENSE-2.0)
